@@ -40,3 +40,7 @@ flake8-todo
 flake8-unused-arguments
 
 mypy
+
+pytest
+pytest_asyncio
+httpx
