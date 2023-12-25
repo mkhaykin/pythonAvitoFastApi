@@ -1,13 +1,15 @@
 from httpx import AsyncClient
 
 
-async def test_hello(async_client: AsyncClient):
-    response = await async_client.get('/')
+async def test_hello(async_client: AsyncClient) -> None:
+    """root test"""
+    response = await async_client.get("/")
     assert response.status_code == 200
-    assert response.json() == {'msg': 'Hello World'}
+    assert response.json() == {"msg": "Hello World"}
 
 
-async def test_echo(async_client: AsyncClient):
-    response = await async_client.get('/echo/message')
+async def test_echo(async_client: AsyncClient) -> None:
+    """echo test"""
+    response = await async_client.get("/echo/message")
     assert response.status_code == 200
-    assert response.json() == {'msg': 'message'}
+    assert response.json() == {"msg": "message"}
