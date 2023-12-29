@@ -3,12 +3,13 @@ repos:
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace      # убирает лишние пробелы
+        files: \.(py|sh|rst|yml|yaml)$
       - id: check-added-large-files  # проверяет тяжелые файлы на изменения
       - id: check-yaml               # проверяет синтаксис .yaml файлов
       - id: check-json               # проверяет синтаксис .json файлов
       - id: check-case-conflict   # проверяет файлы, которые могут конфликтовать в файловых системах без учета регистра.
       - id: check-merge-conflict  # проверяет файлы, содержащие конфликтные строки слияния.
-#      - id: double-quote-string-fixer  # заменяет " на '
+      - id: double-quote-string-fixer  # заменяет " на '
       - id: end-of-file-fixer          # добавляет пустую строку в конце файла
       - id: debug-statements
 
@@ -43,6 +44,7 @@ repos:
         types: [python]
         args: [
            "--ignore=ANN101,ANN401,E203,W503,FI10,FI11,FI12,FI13,FI14,FI15,FI16,FI17,FI18,FI58,PT013",
+           "--extend-immutable-calls=Depends,BackgroundTasks",
            #
                # ANN101 Missing type annotation for self in method
                # ANN401 Dynamically typed expressions (typing.Any) are disallowed
@@ -74,13 +76,6 @@ repos:
         types: [python]
         args: [--py310-plus]
 
-      - id: reorder-python-imports
-        name: reorder-python-imports
-        entry: reorder-python-imports
-        language: system
-        types: [python]
-        args: [--py310-plus]
-
       - id: yesqa
         name: yesqa
         entry: yesqa
@@ -102,8 +97,9 @@ repos:
           types-requests,
         ]
 
-  #    - id: tests
-  #      name: Run tests
-  #      entry: "bash tests.sh"
-  #      language: system
-  #      verbose: true
+      - id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
