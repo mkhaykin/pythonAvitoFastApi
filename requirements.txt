@@ -1,5 +1,12 @@
 fastapi
+pydantic
+pydantic_settings
 uvicorn
+requests
+stem
+sqlalchemy
+psycopg2-binary
+asyncpg
 
 pre-commit
 
