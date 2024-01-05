@@ -11,7 +11,7 @@ class Stat(BaseModel):
         nullable=False,
     )
 
-    timestamp = Column(Numeric(precision=10, scale=2, asdecimal=True, decimal_return_scale=None))
+    timestamp = Column(Numeric(precision=18, scale=6, asdecimal=True, decimal_return_scale=None))
 
     value = Column(
         Integer,
