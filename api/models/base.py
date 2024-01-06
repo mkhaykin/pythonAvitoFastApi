@@ -25,5 +25,5 @@ TBaseModel = TypeVar("TBaseModel", bound=BaseModel)
 
 
 @event.listens_for(Base.metadata, "before_create")
-def _configure_mappers() -> None:  # *args, **kwargs
+def _configure_mappers(*args, **kwargs) -> None:  # noqa: ANN002, ANN003, U100
     configure_mappers()
