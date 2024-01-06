@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = ""
     POSTGRES_PASSWORD: str = ""
 
+    DEBUG: bool = True
     db_echo_log: bool = True
 
     model_config = SettingsConfigDict(env_file=".env")
