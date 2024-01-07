@@ -37,7 +37,7 @@ def _create_db() -> Generator:
     drop_database(SQLALCHEMY_DATABASE_TEST_URL)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def _create_tables(_create_db) -> Generator:  # noqa: ANN001, U101
     create_tables()
     yield
@@ -45,7 +45,9 @@ def _create_tables(_create_db) -> Generator:  # noqa: ANN001, U101
 
 
 @pytest_asyncio.fixture(scope="function")
-async def async_db_engine(_create_tables) -> AsyncGenerator:  # noqa: ANN001, U101
+async def async_db_engine(
+    _create_tables,  # noqa ANN001, U101
+) -> AsyncGenerator:
     yield engine_test_async
 
 
