@@ -8,4 +8,12 @@ class Query(BaseModel):
     category_id = Column(Integer, nullable=True)
     query = Column(String, nullable=True)
 
-    __table_args__ = (UniqueConstraint("region_id", "category_id", "query", name="uc_query"),)
+    __table_args__ = (
+        UniqueConstraint(
+            "region_id",
+            "category_id",
+            "query",
+            postgresql_nulls_not_distinct=True,
+            name="uc_query",
+        ),
+    )
