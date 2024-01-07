@@ -28,7 +28,7 @@ repos:
         entry: black
         language: system
         types: [python]
-        args: [--line-length=200, --target-version=py311]
+        args: [--line-length=79, --target-version=py311]
 
       - id: autoflake
         name: autoflake

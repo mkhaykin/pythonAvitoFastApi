@@ -13,8 +13,14 @@ api = APIRouter()
     summary="Create monitoring",
     status_code=http.HTTPStatus.CREATED,
     responses={
-        404: {"model": schema.Message, "description": "The category ID or region ID does not exists"},
-        409: {"model": schema.Message, "description": "The query with the same params already exists"},
+        404: {
+            "model": schema.Message,
+            "description": "The category ID or region ID does not exists",
+        },
+        409: {
+            "model": schema.Message,
+            "description": "The query with the same params already exists",
+        },
     },
     response_model=schema.AddOut,
     response_description="Return the ID of the created search query",

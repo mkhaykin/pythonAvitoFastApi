@@ -38,21 +38,58 @@ def upgrade() -> None:
         sa.Column("region_id", sa.Integer(), nullable=True),
         sa.Column("category_id", sa.Integer(), nullable=True),
         sa.Column("query", sa.String(), nullable=True),
-        sa.Column("id", sa.UUID(), server_default=sa.text("gen_random_uuid()"), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=True),
+        sa.Column(
+            "id",
+            sa.UUID(),
+            server_default=sa.text("gen_random_uuid()"),
+            nullable=False,
+        ),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=True,
+        ),
         sa.Column("updated_at", sa.DateTime(timezone=True), nullable=True),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("region_id", "category_id", "query", name="uc_query"),
+        sa.UniqueConstraint(
+            "region_id",
+            "category_id",
+            "query",
+            name="uc_query",
+        ),
     )
     op.create_table(
         "stat",
         sa.Column("query_id", sa.UUID(), nullable=False),
-        sa.Column("timestamp", sa.Numeric(precision=18, scale=6), nullable=True),
+        sa.Column(
+            "timestamp",
+            sa.Numeric(precision=18, scale=6),
+            nullable=True,
+        ),
         sa.Column("value", sa.Integer(), nullable=False),
-        sa.Column("id", sa.UUID(), server_default=sa.text("gen_random_uuid()"), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=True),
-        sa.Column("updated_at", sa.DateTime(timezone=True), nullable=True),
-        sa.ForeignKeyConstraint(["query_id"], ["query.id"], ondelete="CASCADE"),
+        sa.Column(
+            "id",
+            sa.UUID(),
+            server_default=sa.text("gen_random_uuid()"),
+            nullable=False,
+        ),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=True,
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime(timezone=True),
+            nullable=True,
+        ),
+        sa.ForeignKeyConstraint(
+            ["query_id"],
+            ["query.id"],
+            ondelete="CASCADE",
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###
