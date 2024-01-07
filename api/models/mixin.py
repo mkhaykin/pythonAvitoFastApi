@@ -1,8 +1,10 @@
+import uuid
 from typing import Any, ClassVar
 from uuid import uuid4
 
 from sqlalchemy import DDL, Column, DateTime, FromClause, event, func
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped
 
 
 class Mixin:  # for mypy
@@ -11,7 +13,8 @@ class Mixin:  # for mypy
 
 
 class MixinID(Mixin):
-    id = Column(  # noqa A003
+    id: Mapped[uuid.UUID]  # noqa: A003
+    id = Column(  # type: ignore  # noqa: A003
         UUID(as_uuid=True),
         server_default=func.gen_random_uuid(),
         primary_key=True,
