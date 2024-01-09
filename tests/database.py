@@ -26,7 +26,7 @@ SQLALCHEMY_DATABASE_TEST_URL_async = URL.create(
 )
 
 engine_test_async = create_async_engine(
-    SQLALCHEMY_DATABASE_TEST_URL_async,
+    url=SQLALCHEMY_DATABASE_TEST_URL_async,
     pool_pre_ping=True,
 )
 

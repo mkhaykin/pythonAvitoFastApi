@@ -3,6 +3,12 @@ from collections.abc import AsyncGenerator, Generator
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 from sqlalchemy_utils.functions import (  # type: ignore
     create_database,
     database_exists,
@@ -14,10 +20,9 @@ from main import app
 
 from .database import (
     SQLALCHEMY_DATABASE_TEST_URL,
-    TestingSession,
+    SQLALCHEMY_DATABASE_TEST_URL_async,
     create_tables,
     drop_tables,
-    engine_test_async,
     override_get_db,
 )
 
@@ -28,7 +33,7 @@ async def async_client() -> AsyncGenerator:
         yield client
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def _create_db() -> Generator:
     app.dependency_overrides[get_db] = override_get_db
     if not database_exists(SQLALCHEMY_DATABASE_TEST_URL):
@@ -37,21 +42,32 @@ def _create_db() -> Generator:
     drop_database(SQLALCHEMY_DATABASE_TEST_URL)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module", autouse=True)
 def _create_tables(_create_db) -> Generator:  # noqa: ANN001, U101
     create_tables()
     yield
     drop_tables()
 
 
-@pytest_asyncio.fixture(scope="function")
-async def async_db_engine(
-    _create_tables,  # noqa ANN001, U101
-) -> AsyncGenerator:
-    yield engine_test_async
+@pytest_asyncio.fixture()
+async def async_engine() -> AsyncGenerator:
+    engine = create_async_engine(
+        url=SQLALCHEMY_DATABASE_TEST_URL_async,
+        pool_pre_ping=True,
+    )
+    yield engine
+    await engine.dispose()
 
 
-@pytest_asyncio.fixture(scope="function")
-async def async_db(async_db_engine) -> AsyncGenerator:  # noqa: ANN001, U100
-    async with TestingSession() as session:
+@pytest_asyncio.fixture()
+async def async_session(
+    async_engine: AsyncEngine,
+) -> AsyncGenerator[AsyncSession, None]:
+    _session = async_sessionmaker(
+        bind=async_engine,
+        expire_on_commit=False,
+        autocommit=False,
+        autoflush=False,
+    )
+    async with _session() as session:
         yield session
