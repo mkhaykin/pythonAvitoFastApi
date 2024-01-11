@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import AliasChoices, BaseModel, Field
 
 
 class AddIn(BaseModel):
@@ -10,7 +10,11 @@ class AddIn(BaseModel):
 
 
 class AddOut(BaseModel):
-    query_id: UUID
+    query_id: UUID = Field(validation_alias=AliasChoices("query_id", "id"))
+
+
+class AddGet(AddIn, AddOut):
+    pass
 
 
 class StatIn(BaseModel):
