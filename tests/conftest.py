@@ -3,6 +3,7 @@ from collections.abc import AsyncGenerator, Generator
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient
+from sqlalchemy import DDL
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
@@ -71,3 +72,22 @@ async def async_session(
     )
     async with _session() as session:
         yield session
+
+
+@pytest_asyncio.fixture()
+async def clear_tables(
+    async_session: AsyncSession,
+) -> None:
+    stmt = DDL(
+        """
+    DO $$ DECLARE
+        r RECORD;
+    BEGIN
+        FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP
+            EXECUTE 'TRUNCATE TABLE ' || quote_ident(r.tablename) || ' CASCADE';
+        END LOOP;
+    END $$;
+    """,
+    )
+    await async_session.execute(stmt)
+    return
