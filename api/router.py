@@ -29,7 +29,7 @@ async def add(
     params: schema.AddIn = Depends(),
     service: Service = Depends(),
 ) -> schema.AddOut:
-    return service.add(params)
+    return await service.add(params)
 
 
 @api.get(
@@ -42,4 +42,4 @@ async def stat(
     params: schema.StatIn = Depends(),
     service: Service = Depends(),
 ) -> list[schema.StatOut]:
-    return service.stat(params.query_id)
+    return await service.stat(params.query_id)
