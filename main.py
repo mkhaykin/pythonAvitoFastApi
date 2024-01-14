@@ -1,9 +1,21 @@
+import logging
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 
 from api.router import api
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncGenerator:  # noqa U100
+    yield
+
+
+logger = logging.getLogger(__name__)
+
+app = FastAPI(lifespan=lifespan)
 app.include_router(api, prefix="/api")
 
 
