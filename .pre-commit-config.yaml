@@ -35,6 +35,7 @@ repos:
         entry: autoflake
         language: system
         types: [python]
+        exclude: __init__.py
         args: [--in-place, --remove-all-unused-imports, --remove-duplicate-keys]
 
       - id: flake8
