@@ -10,6 +10,9 @@ psycopg2-binary
 asyncpg
 alembic
 
+celery
+redis
+
 pre-commit
 
 isort
