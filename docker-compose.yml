@@ -32,7 +32,7 @@ services:
       REDIS_SERVER: redis
       CELERY_BROKER_URL: redis://redis:${REDIS_PORT}
       CELERY_RESULT_BACKEND: redis://redis:${REDIS_PORT}
-    command: celery --app=api.tasks:celery worker --loglevel=INFO
+    command: celery --app=src.api.tasks:celery worker --loglevel=INFO
     depends_on:
       - redis
 
@@ -47,7 +47,7 @@ services:
         REDIS_SERVER: redis
         CELERY_BROKER_URL: redis://redis:${REDIS_PORT}
         CELERY_RESULT_BACKEND: redis://redis:${REDIS_PORT}
-      command: celery --app=api.tasks:celery beat --loglevel=INFO
+      command: celery --app=src.api.tasks:celery beat --loglevel=INFO
       links:
         - celery
         - redis

@@ -2,7 +2,7 @@ import logging
 
 from celery import Celery  # type: ignore
 
-from api.config import settings
+from src.api.config import settings
 
 celery = Celery(__name__)
 celery.conf.broker_url = settings.CELERY_BROKER_URL

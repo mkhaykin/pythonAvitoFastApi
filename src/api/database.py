@@ -6,8 +6,8 @@ from sqlalchemy.engine import URL, create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from api.config import settings
-from api.models.base import Base
+from src.api.config import settings
+from src.api.models.base import Base
 
 SQLALCHEMY_DATABASE_URL = URL.create(
     drivername="postgresql",

@@ -4,8 +4,8 @@ import pytest
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api import schema
-from api.models import crud
+from src.api import schema
+from src.api.models import crud
 
 
 async def test_query_not_exist(

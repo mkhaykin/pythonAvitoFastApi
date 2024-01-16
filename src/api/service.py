@@ -3,9 +3,9 @@ from uuid import UUID
 from fastapi import BackgroundTasks, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api import schema
-from api.database import get_db
-from api.models import crud
+from src.api import schema
+from src.api.database import get_db
+from src.api.models import crud
 
 
 class Service:

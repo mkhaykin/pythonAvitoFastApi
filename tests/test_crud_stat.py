@@ -10,8 +10,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api import schema
-from api.models import crud
+from src.api import schema
+from src.api.models import crud
 
 from .test_utils import check_query, check_states
 

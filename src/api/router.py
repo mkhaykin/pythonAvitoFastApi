@@ -2,8 +2,8 @@ import http
 
 from fastapi import APIRouter, Depends
 
-from api import schema
-from api.service import Service
+from src.api import schema
+from src.api.service import Service
 
 api = APIRouter()
 

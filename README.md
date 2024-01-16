@@ -5,4 +5,3 @@
 
 Полная информация:
 https://github.com/avito-tech/mi-backend-trainee-assignment
-

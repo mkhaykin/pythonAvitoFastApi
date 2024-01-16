@@ -16,8 +16,8 @@ from sqlalchemy_utils.functions import (  # type: ignore
     drop_database,
 )
 
-from api.database import get_db
-from main import app
+from src.api.database import get_db
+from src.main import app
 
 from .database import (
     SQLALCHEMY_DATABASE_TEST_URL,

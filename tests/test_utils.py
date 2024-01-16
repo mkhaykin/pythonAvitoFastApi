@@ -3,8 +3,8 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api import models
-from api.models import crud
+from src.api import models
+from src.api.models import crud
 
 
 async def check_query(

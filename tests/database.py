@@ -3,8 +3,8 @@ from collections.abc import AsyncGenerator
 from sqlalchemy.engine import URL, create_engine
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from api.config import settings
-from api.database import Base
+from src.api.config import settings
+from src.api.models import Base
 
 SQLALCHEMY_DATABASE_TEST_URL = URL.create(
     drivername="postgresql",

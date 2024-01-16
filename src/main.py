@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from api.router import api
+from src.api.router import api
 
 
 @asynccontextmanager

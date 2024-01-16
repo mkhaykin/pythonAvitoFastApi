@@ -5,7 +5,8 @@ from sqlalchemy import select
 from sqlalchemy.exc import DatabaseError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api import models, schema
+from src.api import models
+from src.api import schema
 
 
 async def query_add(
