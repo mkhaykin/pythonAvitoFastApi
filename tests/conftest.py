@@ -34,7 +34,7 @@ async def async_client() -> AsyncGenerator:
         yield client
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def _create_db() -> Generator:
     app.dependency_overrides[get_db] = override_get_db
     if not database_exists(SQLALCHEMY_DATABASE_TEST_URL):
