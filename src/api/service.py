@@ -19,8 +19,8 @@ class Service:
 
     async def add(
         self,
-        query: schema.AddIn,
-    ) -> schema.AddOut:
+        query: schema.QueryIn,
+    ) -> schema.QueryOut:
         return await crud.query_add(
             self.session,
             query.region_id,

@@ -3,17 +3,17 @@ from uuid import UUID
 from pydantic import AliasChoices, BaseModel, Field
 
 
-class AddIn(BaseModel):
+class QueryIn(BaseModel):
     region_id: int | None = Field(description="region id")
     category_id: int | None = Field(description="category id")
     query: str | None = Field(description="search query")
 
 
-class AddOut(BaseModel):
+class QueryOut(BaseModel):
     query_id: UUID = Field(validation_alias=AliasChoices("query_id", "id"))
 
 
-class AddGet(AddIn, AddOut):
+class QueryGet(QueryIn, QueryOut):
     pass
 
 

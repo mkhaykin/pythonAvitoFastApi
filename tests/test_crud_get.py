@@ -42,7 +42,7 @@ async def test_query_get(
         )
     ).query_id
 
-    result: schema.AddGet = await crud.query_get(async_session, query_id)
+    result: schema.QueryGet = await crud.query_get(async_session, query_id)
 
     assert result.query_id == query_id
     assert result.region_id == region_id

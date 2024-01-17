@@ -5,8 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.exc import DatabaseError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.api import models
-from src.api import schema
+from src.api import models, schema
 
 
 async def query_add(
@@ -14,7 +13,7 @@ async def query_add(
     region_id: int | None = None,
     category_id: int | None = None,
     query: str | None = "",
-) -> schema.AddOut:
+) -> schema.QueryOut:
     db_obj = models.Query(
         region_id=region_id,
         category_id=category_id,
@@ -37,13 +36,13 @@ async def query_add(
             detail="DB error while creating",
         )
 
-    return schema.AddGet.model_validate(db_obj.__dict__)
+    return schema.QueryGet.model_validate(db_obj.__dict__)
 
 
 async def query_get(
     session: AsyncSession,
     query_id: UUID,
-) -> schema.AddGet:
+) -> schema.QueryGet:
     db_obj: models.Query | None
     db_obj = await session.get(models.Query, query_id)
     if not db_obj:
@@ -51,7 +50,7 @@ async def query_get(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f'The query with id "{query_id}" not found',
         )
-    return schema.AddGet.model_validate(db_obj.__dict__)
+    return schema.QueryGet.model_validate(db_obj.__dict__)
 
 
 async def stats_get(

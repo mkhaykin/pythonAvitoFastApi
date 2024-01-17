@@ -22,13 +22,13 @@ api = APIRouter()
             "description": "The query with the same params already exists",
         },
     },
-    response_model=schema.AddOut,
+    response_model=schema.QueryOut,
     response_description="Return the ID of the created search query",
 )
 async def add(
-    params: schema.AddIn = Depends(),
+    params: schema.QueryIn = Depends(),
     service: Service = Depends(),
-) -> schema.AddOut:
+) -> schema.QueryOut:
     return await service.add(params)
 
 
