@@ -13,6 +13,8 @@ alembic
 celery
 redis
 
+pymongo
+
 pre-commit
 
 isort

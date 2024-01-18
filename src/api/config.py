@@ -14,6 +14,15 @@ class Settings(BaseSettings):
     CELERY_BROKER_URL: str = ""
     CELERY_RESULT_BACKEND: str = ""
 
+    MONGO_ROOT_USERNAME: str = ""
+    MONGO_ROOT_PASSWORD: str = ""
+    MONGO_SERVER: str = "127.0.0.1"
+    MONGO_PORT: int = 27017
+    MONGO_DATABASE: str = ""
+
+    MONGO_EXPRESS_LOGIN: str = ""
+    MONGO_EXPRESS_PASSWORD: str = ""
+
     DEBUG: bool = True
     db_echo_log: bool = True
 
